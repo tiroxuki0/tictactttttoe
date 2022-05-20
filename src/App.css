@@ -1,38 +1,281 @@
+@import url("https://fonts.googleapis.com/css2?family=Koulen&display=swap");
+body {
+  font-family: "Koulen";
+}
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-direction: column;
+}
+.game {
+  position: relative;
+  z-index: 4;
+}
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
+}
+.board-size select,
+.board-size option {
+  padding: 2px;
+  font-size: 15px;
+  color: white;
+  font-family: "Koulen";
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: none;
+  background: #0000006e;
+}
+.board-size option {
+  background: black;
+}
+.board-size select:focus {
+  border-color: rgba(255, 140, 0, 0.7);
+  outline: none;
+}
+.isNext {
+  color: rgb(156, 156, 156);
+  margin: 5px 0px;
+}
+.board {
+  display: grid;
+  margin-bottom: 5px;
+  grid-gap: 5px;
+}
+.square {
+  background: rgba(255, 140, 0, 0.8);
+}
+
+.square.sunshine {
+  box-shadow: rgb(0 0 0 / 65%) 0px 0px 3px 1px;
+}
+.square.dark {
+  box-shadow: rgb(255 255 255 / 65%) 0px 0px 3px 1px;
+}
+
+.board button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 35px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: white;
+  line-height: 0px;
+  /* box-shadow: rgb(0 0 0 / 16%) 0px 0 7px;
+  box-shadow: rgb(255 255 255 / 38%) 0px 0 7px; */
+  transition: all 0.5s ease;
+}
+.restart {
+  display: block;
+  border: none;
+  padding: 5px;
+  font-size: 20px;
+  color: white;
+  background: rgba(255, 140, 0, 0.8);
+  cursor: pointer;
+}
+.winnerBanner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+.step {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 350px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+}
+.step .stepX {
+  font-weight: 800;
+  color: rgba(255, 140, 0, 0.8);
+}
+.step .stepO {
+  font-weight: 800;
+  color: rgb(86, 204, 242, 0.8);
+}
+.step li {
+  cursor: pointer;
+  text-align: left;
+  color: rgb(156, 156, 156);
+}
+.isX {
+  background: #fe8c00; /* fallback for old browsers */
+  text-shadow: rgba(254, 102, 0, 0.8) 2px 2px 1px;
+  background: rgba(194, 78, 0, 0.8); /* Chrome 10-25, Safari 5.1-6 */
+  background: rgba(
+    194,
+    78,
+    0,
+    0.8
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.isO {
+  background: #56ccf2; /* fallback for old browsers */
+  text-shadow: rgb(47, 128, 237, 0.8) 2px 2px 1px;
+  background: rgba(20, 82, 163, 0.8); /* Chrome 10-25, Safari 5.1-6 */
+  background: rgba(
+    20,
+    82,
+    163,
+    0.8
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.isWinner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 30px;
+}
+.isWinner p {
+  font-size: 30px;
+  font-weight: 700;
+  /* night */
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.isWinner h2 {
+  font-family: "system-ui";
+  transform: translateY(-3px);
+  font-size: 40px;
+  font-weight: 800;
+}
+.isXwinner {
+  color: rgba(255, 140, 0);
+  text-shadow: rgb(166 92 0) 2px 2px 1px;
+}
+.isOwinner {
+  color: rgb(86, 204, 242);
+  text-shadow: rgb(25 137 173) 3px 2px 1px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.game-title {
+  font-family: "Koulen";
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transform: translateX(-30px);
+  font-size: 80px;
+  margin: 10px 0px;
+}
+.game-title span:nth-child(odd) {
+  color: rgba(255, 140, 0, 0.8);
+}
+.game-title span:nth-child(even) {
+  color: rgb(86, 204, 242, 0.8);
+}
+/* sky */
+body {
+  width: 100vw;
+  height: calc(100vh + 300px);
+  background: #050f1b;
+  transition: background 0.3s ease-in-out;
+}
+
+#sky {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#shootingstars {
+  margin: 0;
+  padding: 0;
+  width: 150vh;
+  height: 100vw;
+  position: fixed;
+  overflow: hidden;
+  transform: translatex(calc(50vw - 50%)) translatey(calc(50vh - 50%))
+    rotate(120deg);
+}
+
+.wish {
+  height: 3px;
+  border-radius: 100rem;
+  top: 300px;
+  width: 100px;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  background-color: white;
+  position: absolute;
+  background: linear-gradient(-45deg, white, rgba(0, 0, 255, 0));
+  filter: drop-shadow(0 0 6px white);
+  overflow: hidden;
+}
+
+/* dark theme button styles */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+.change_theme {
+  position: fixed;
+  z-index: 1000;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+}
+/* absolute position the input element on top of the accompanying svg element */
+label {
+  cursor: pointer;
+  position: relative;
+}
+label input {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  display: none;
+}
+label svg {
+  width: 50px;
+  height: auto;
+  display: block;
+}
+/* include transitions for the elements modified as the input is checked */
+label input + svg .light {
+  transition: opacity 0.75s cubic-bezier(0.68, 0.25, 0.265, 1);
+}
+label input + svg .translate,
+label input + svg .rotate,
+label input + svg .background,
+label input + svg .astronaut,
+label input + svg .surfer {
+  transition: transform 0.75s cubic-bezier(0.68, 0.25, 0.265, 1);
+}
+/* make the .light element fully transparent to have the .dark variant see through */
+label input:checked + svg .light {
+  opacity: 0;
+}
+/* translate the sun/moon toward the right (by default it is pushed back with a negative translation) */
+label input:checked + svg .translate {
+  transform: translateX(0px);
+}
+/* rotate the moon (by default it is rotated counter-clockwise) */
+label input:checked + svg .rotate {
+  transform: rotate(0deg);
+}
+/* translate the scale the backgrounds to 0
+this is rather neat, so meant an extra comment
+- the light background is positioned with two groups, one pushing it below the graphic, one back up; by removing the translation of this last group the background "returns" below the toggle
+- the dark background is positioned above and with a smaller vertical scale; by removing the translation it is placed in full view and by increasing its scale it's as if the stars would tumble down with different rates
+*/
+label input:checked + svg .background {
+  transform: translate(0px) scale(1);
 }
