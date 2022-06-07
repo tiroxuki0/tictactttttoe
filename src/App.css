@@ -375,7 +375,7 @@ label input:checked + svg .background {
     display: none;
   }
   .board button {
-    transform: translate(1px, -1px);
+    transform: translate(1px, 0px);
   }
   .controls-top {
     margin-bottom: 0px;
