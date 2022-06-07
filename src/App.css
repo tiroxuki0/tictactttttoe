@@ -380,6 +380,7 @@ label input:checked + svg .background {
   .isNext {
     font-size: 30px;
     margin: 0px;
+    display: none;
   }
   .main {
     flex-direction: column-reverse;
