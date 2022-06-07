@@ -21,42 +21,29 @@ function Game() {
       targets: ".board .square",
       scale: [
         { value: 0.9, easing: "easeOutSine", duration: 100 },
-        { value: 1, easing: "easeInOutQuad", duration: 400 },
+        { value: 1, easing: "easeInOutQuad", duration: 250 },
       ],
       delay: anime.stagger(70, {
         grid: [boardSize, boardSize],
         from: e,
       }),
     });
-
-    /* animationButton.current = anime({
-      targets: ".board .square",
-      translateX: anime.stagger(10, {
-        grid: [14, 5],
-        from: "center",
-        axis: "x",
-      }),
-      translateY: anime.stagger(10, {
-        grid: [14, 5],
-        from: "center",
-        axis: "y",
-      }),
-      rotateZ: anime.stagger([0, 90], {
-        grid: [14, 5],
-        from: "center",
-        axis: "x",
-      }),
-      delay: anime.stagger(200, { grid: [14, 5], from: "center" }),
-      easing: "easeInOutQuad",
-    }); */
   };
   React.useEffect(() => {
     setIsWinner(calculate(board));
-  });
+  }, [xIsNext]);
 
+  const cursorRef = React.useRef(null);
+  React.useEffect(() => {
+    document.onmousemove = (e) => {
+      cursorRef.current.style.left = e.pageX + 5 + "px";
+      cursorRef.current.style.top = e.pageY - 30 + "px";
+    };
+  }, []);
   /* handle restart */
   const handleRestart = () => {
     const size = boardSize * boardSize;
+    setIsWinner("");
     setOnHistory(false);
     setBoard(Array(size).fill(null));
     setStep([]);
@@ -112,28 +99,14 @@ function Game() {
       targets: ".game-title .letter",
       opacity: 1,
       translateY: 50,
-      rotate: {
-        value: 360,
-        duration: 2000,
-        easing: "easeInExpo",
-      },
       delay: anime.stagger(100, { start: 1000 }),
       translateY: [-150, 0],
       translateX: [-10, 30],
     });
     animationBoard.current = anime({
       targets: ".board",
-      translateX: {
-        value: [-1000, 0],
-        duration: 800,
-      },
-      rotate: {
-        value: 180,
-        duration: 1000,
-        easing: "easeInOutSine",
-      },
       scale: {
-        value: [0.5, 1],
+        value: [0, 1],
         duration: 1600,
         delay: 800,
         easing: "easeInOutQuart",
@@ -145,6 +118,8 @@ function Game() {
   /* handle change board size */
   const boardSizes = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   const handleBoardSize = (e) => {
+    setIsWinner("");
+    setOnHistory(false);
     setBoardSize(e.target.value);
     setBoard(Array(e.target.value * e.target.value).fill(null));
     setStep([]);
@@ -154,11 +129,6 @@ function Game() {
         value: [-1000, 0],
         duration: 800,
       },
-      rotate: {
-        value: 180,
-        duration: 1000,
-        easing: "easeInOutSine",
-      },
       scale: {
         value: [0.5, 1],
         duration: 1600,
@@ -167,6 +137,17 @@ function Game() {
       },
       delay: 250, // All properties except 'scale' inherit 250ms delay
     });
+  };
+
+  /* bars button */
+  const handleBars = (e) => {
+    if (e.target.checked) {
+      document.querySelector(".bars").classList.add("toggle");
+      document.querySelector(".controls").classList.add("show");
+    } else {
+      document.querySelector(".controls").classList.remove("show");
+      document.querySelector(".bars").classList.remove("toggle");
+    }
   };
   return (
     <div className="game">
@@ -191,23 +172,29 @@ function Game() {
           onHistory={onHistory}
           isWinner={isWinner}
         />
+        <div className="bars-control hidden-lg">
+          <input
+            type="checkbox"
+            id="bars_input"
+            onClick={handleBars}
+            style={{ display: "none" }}
+          />
+          <label className="bars" htmlFor="bars_input">
+            <div></div>
+            <div></div>
+            <div></div>
+          </label>
+        </div>
         <div className="controls">
           <div className="winnerBanner">
             <div className="isWinner">
-              <p>{isWinner ? "Winner: " : ""}</p>
+              {/* <p>{isWinner ? "Winner: " : ""}</p>
               <h2 className={"is" + isWinner + "winner"}>
                 {isWinner !== undefined ? isWinner : ""}
-              </h2>
+              </h2> */}
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              marginBottom: "10px",
-            }}
-          >
+          <div className="controls-top">
             <div className="board-size">
               <select onChange={handleBoardSize}>
                 {boardSizes.map((size) => {
@@ -231,8 +218,8 @@ function Game() {
               Restart
             </button>
           </div>
-          <h4 className="isNext">Next: {xIsNext ? "X" : "O"}</h4>
-          <ul className="step">
+
+          <ul className="step hidden-md">
             {step.map((e, i) => {
               return (
                 <li key={i} onClick={() => rollBack(i)}>
@@ -242,6 +229,11 @@ function Game() {
               );
             })}
           </ul>
+          <div className="isNext" ref={cursorRef}>
+            <button className={xIsNext ? "isXNext" : "isONext"}>
+              {xIsNext ? "X" : "O"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

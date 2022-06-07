@@ -3,25 +3,25 @@ import React from "react";
 const DarkTheme = () => {
   const handleChangeTheme = (e) => {
     if (e.target.checked) {
-      document.querySelector(".isWinner p").style.color = "white";
+      // document.querySelector(".isWinner p").style.color = "white";
       document.querySelector("body").style.background = "#050f1b";
-      [...document.querySelectorAll(".board .square")].forEach((e) => {
-        const classes = [...e.classList]
-        if(classes.includes("sunshine")){
-          e.classList.remove("sunshine")
+      /* [...document.querySelectorAll(".board .square")].forEach((e) => {
+        const classes = [...e.classList];
+        if (classes.includes("sunshine")) {
+          e.classList.remove("sunshine");
         }
         e.classList.add("dark");
-      });
+      }); */
     } else {
-      document.querySelector(".isWinner p").style.color = "#050f1b";
+      // document.querySelector(".isWinner p").style.color = "#050f1b";
       document.querySelector("body").style.background = "transparent";
-      [...document.querySelectorAll(".board .square")].forEach((e) => {
-        const classes = [...e.classList]
-        if(classes.includes("dark")){
-          e.classList.remove("dark")
+      /*  [...document.querySelectorAll(".board .square")].forEach((e) => {
+        const classes = [...e.classList];
+        if (classes.includes("dark")) {
+          e.classList.remove("dark");
         }
-          e.classList.add("sunshine");
-      });
+        e.classList.add("sunshine");
+      }); */
     }
   };
   return (

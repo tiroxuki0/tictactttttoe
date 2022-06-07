@@ -11,12 +11,19 @@ body {
 .game {
   position: relative;
   z-index: 4;
+  padding: 0px 10px;
 }
 .main {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: 15px;
+}
+.controls-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0px;
 }
 .board-size select,
 .board-size option {
@@ -46,7 +53,10 @@ body {
   grid-gap: 5px;
 }
 .square {
-  background: rgba(255, 140, 0, 0.8);
+  background: rgb(255, 140, 0);
+  width: 50px;
+  height: 50px;
+  opacity: 0.8;
 }
 
 .square.sunshine {
@@ -54,6 +64,10 @@ body {
 }
 .square.dark {
   box-shadow: rgb(255 255 255 / 65%) 0px 0px 3px 1px;
+}
+
+.square.yes {
+  background: white;
 }
 
 .board button {
@@ -68,6 +82,7 @@ body {
   -webkit-text-fill-color: transparent;
   color: white;
   line-height: 0px;
+  transform: translate(-2px, -2px);
   /* box-shadow: rgb(0 0 0 / 16%) 0px 0 7px;
   box-shadow: rgb(255 255 255 / 38%) 0px 0 7px; */
   transition: all 0.5s ease;
@@ -111,25 +126,64 @@ body {
 }
 .isX {
   background: #fe8c00; /* fallback for old browsers */
-  text-shadow: rgba(254, 102, 0, 0.8) 2px 2px 1px;
-  background: rgba(194, 78, 0, 0.8); /* Chrome 10-25, Safari 5.1-6 */
+  text-shadow: rgba(254, 102, 0, 0.9) -2px -2px 1px;
   background: rgba(
     194,
     78,
     0,
-    0.8
+    0.9
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .isO {
   background: #56ccf2; /* fallback for old browsers */
-  text-shadow: rgb(47, 128, 237, 0.8) 2px 2px 1px;
-  background: rgba(20, 82, 163, 0.8); /* Chrome 10-25, Safari 5.1-6 */
+  text-shadow: rgb(47, 128, 237, 0.9) -2px -2px 1px;
   background: rgba(
     20,
     82,
     163,
-    0.8
+    0.9
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.isNext {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  z-index: 1000;
+}
+.isXNext {
+  background: #fe8c00; /* fallback for old browsers */
+  text-shadow: rgba(254, 102, 0, 0.9) -2px -2px 1px;
+  background: rgba(194, 78, 0, 0.9);
+}
+.isONext {
+  background: #56ccf2; /* fallback for old browsers */
+  text-shadow: rgb(47, 128, 237, 0.9) -2px -2px 1px;
+  background: rgba(
+    20,
+    82,
+    163,
+    0.9
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.isNext button {
+  height: 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border: none;
+  outline: none;
+  cursor: none;
+  font-weight: 900;
+  font-size: 35px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: white;
+  line-height: 0px;
+  transform: translate(-2px, -2px);
+  transition: all 0.5s ease;
 }
 .isWinner {
   display: flex;
@@ -151,11 +205,11 @@ body {
 }
 .isXwinner {
   color: rgba(255, 140, 0);
-  text-shadow: rgb(166 92 0) 2px 2px 1px;
+  text-shadow: rgb(166 92 0) -2px -2px 1px;
 }
 .isOwinner {
   color: rgb(86, 204, 242);
-  text-shadow: rgb(25 137 173) 3px 2px 1px;
+  text-shadow: rgb(25 137 173) -2px -2px 1px;
 }
 
 .game-title {
@@ -176,7 +230,7 @@ body {
 /* sky */
 body {
   width: 100vw;
-  height: calc(100vh + 300px);
+  height: 100vh;
   background: #050f1b;
   transition: background 0.3s ease-in-out;
 }
@@ -226,7 +280,7 @@ body {
   position: fixed;
   z-index: 1000;
   right: 5px;
-  top: 5px;
+  bottom: 5px;
   cursor: pointer;
 }
 /* absolute position the input element on top of the accompanying svg element */
@@ -278,4 +332,133 @@ this is rather neat, so meant an extra comment
 */
 label input:checked + svg .background {
   transform: translate(0px) scale(1);
+}
+
+.bars {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+  transition: all 0.4s ease;
+}
+.bars > div {
+  width: 100%;
+  height: 3px;
+  background: silver;
+  transition: all 0.4s ease;
+}
+
+.bars.toggle {
+  transform: translateX(0%);
+}
+
+.bars.toggle > div:nth-child(even) {
+  transform: translate(-100%);
+  opacity: 0;
+}
+.bars.toggle > div:first-child {
+  transform: translateY(200%) rotate(45deg);
+}
+.bars.toggle > div:last-child {
+  transform: translateY(-200%) rotate(-45deg);
+}
+@media screen and (min-width: 768px) {
+  .hidden-lg {
+    display: none;
+  }
+}
+@media screen and (max-width: 767px) {
+  .hidden-md {
+    display: none;
+  }
+  .controls-top {
+    margin-bottom: 0px;
+  }
+  .isNext {
+    font-size: 30px;
+    margin: 0px;
+  }
+  .main {
+    flex-direction: column-reverse;
+  }
+  .bars-control {
+    position: fixed;
+    right: 10px;
+    top: 5px;
+    z-index: 10000000;
+  }
+  .controls {
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%) rotate(150deg);
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 100rem;
+    backdrop-filter: blur(5px);
+    width: 500px;
+    height: 500px;
+    transition: all 0.7s ease;
+    padding: 60px 30px 100px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    box-shadow: rgb(0 0 0 / 50%) -4px 4px 20px 0px;
+    overflow: hidden;
+  }
+  .controls > * {
+    z-index: 5;
+    position: relative;
+  }
+  .controls.show {
+    transform: translate(50%, -50%) rotate(0deg);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+@media screen and (max-width: 570px) {
+  .App {
+    width: 100vw;
+  }
+  .game,
+  .main {
+    width: 100%;
+  }
+
+  .square {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.search_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  margin-top: 50px;
+  gap: 5px;
+  position: relative;
+  z-index: 10000000000;
+}
+.search_box input {
+  outline: none;
+  border: 1px solid silver;
+  padding: 5px 10px;
+  font-size: 18px;
+  height: 100%;
+}
+.search_box button {
+  border: none;
+  outline: none;
+  background: orange;
+  color: white;
+  font-weight: 600;
+  height: 100%;
+  padding: 5px;
 }
