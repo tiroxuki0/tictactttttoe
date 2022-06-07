@@ -85,7 +85,7 @@ function App() {
           />
         ))}
       </svg>
-      <div id="shootingstars">
+      {/* <div id="shootingstars">
         {[...Array(50)].map((x, y) => (
           <div
             key={y}
@@ -96,7 +96,7 @@ function App() {
             }}
           />
         ))}
-      </div>
+      </div> */}
       <Game />
     </div>
   );
