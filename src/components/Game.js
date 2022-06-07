@@ -4,9 +4,9 @@ import Board from "./Board";
 import calculate from "./calculate";
 
 function Game() {
-  const [boardSize, setBoardSize] = React.useState(10);
+  const [boardSize, setBoardSize] = React.useState(6);
   const [onHistory, setOnHistory] = React.useState(false);
-  const [board, setBoard] = React.useState(Array(100).fill(null));
+  const [board, setBoard] = React.useState(Array(36).fill(null));
   const [step, setStep] = React.useState([]);
   const [xIsNext, setXisNext] = React.useState(true);
   const [isWinner, setIsWinner] = React.useState("");
@@ -200,13 +200,22 @@ function Game() {
                 {boardSizes.map((size) => {
                   if (size == boardSize) {
                     return (
-                      <option key={size} value={size} selected>
+                      <option
+                        className={size > 9 ? "desktop" : ""}
+                        key={size}
+                        value={size}
+                        selected
+                      >
                         {size + " " + "x" + " " + size}
                       </option>
                     );
                   } else {
                     return (
-                      <option key={size} value={size}>
+                      <option
+                        className={size > 9 ? "desktop" : ""}
+                        key={size}
+                        value={size}
+                      >
                         {size + " " + "x" + " " + size}
                       </option>
                     );

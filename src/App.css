@@ -375,8 +375,11 @@ label input:checked + svg .background {
   .hidden-md {
     display: none;
   }
+  .desktop {
+    display: none;
+  }
   .board button {
-    transform: translate(1px, 0px);
+    transform: translate(1px, 1px);
   }
   .controls-top {
     margin-bottom: 0px;
